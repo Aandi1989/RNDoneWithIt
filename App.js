@@ -9,20 +9,32 @@ import {
   SafeAreaView,
   Button,
   Platform,
-  StatusBar
+  StatusBar,
 } from "react-native";
-import { useDimensions, useDeviceOrientation } from "@react-native-community/hooks";
+import {
+  useDimensions,
+  useDeviceOrientation,
+} from "@react-native-community/hooks";
+import {MaterialCommunityIcons} from '@expo/vector-icons';
+
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import ViewImageScreen from "./app/screens/ViewImageScreen";
+import AppText from "./app/components/AppText";
 
 export default function App() {
   return (
-    // <WelcomeScreen />
-    <ViewImageScreen />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <AppText>I love React Native!</AppText>
+      <MaterialCommunityIcons name="email" size={200} color="dodgerblue"/>
+    </View>
   );
 }
-
-
 
 // The function useDimensions() doesn’t exist anymore in the module “@react-native-community/hooks”.
 // You can use the equivalent function useWindowDimensions() from “react-native”.
