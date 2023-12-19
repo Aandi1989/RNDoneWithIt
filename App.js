@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Image,
@@ -6,6 +6,9 @@ import {
   Button,
   Platform,
   StatusBar,
+  TextInput,
+  Text,
+  Switch,
 } from "react-native";
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -21,11 +24,18 @@ import Icon from "./app/components/Icon";
 import ListItem from "./app/components/ListItem";
 import AccountScreen from "./app/screens/AccountScreen";
 import ListingsScreen from "./app/screens/ListingsScreen";
+import AppTextInput from "./app/components/AppTextInput";
+import AppPicker from "./app/components/AppPicker";
 
 export default function App() {
+  const [isNew, setIsNew] = useState(false);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-     <ListingsScreen />
+     <Screen>
+        <AppPicker icon="apps" placeholder="Category"/>
+        <AppTextInput icon="email" placeholder="Email"/>
+     </Screen>
     </GestureHandlerRootView>
   );
 }
