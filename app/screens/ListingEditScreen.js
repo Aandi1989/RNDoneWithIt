@@ -1,44 +1,57 @@
 import React from "react";
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
+import {
+  AppForm,
+  AppFormField as FormField,
+  AppFormPicker as Picker,
+  SubmitButton,
+} from "../components/forms/index";
 import Screen from "../components/Screen";
-import { AppFormField, SubmitButton, AppForm } from "../components/forms/index";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  title: Yup.string().required().min(1).label("Title"),
+  price: Yup.number().required().min(1).max(10000).label("Price"),
+  description: Yup.string().label("Description"),
+  category: Yup.object().required().nullable().label("Category"),
 });
 
-function LoginScreen(props) {
+const categories = [
+  { label: "Furniture", value: 1 },
+  { label: "Clothing", value: 2 },
+  { label: "Camera", value: 3 },
+];
+
+function ListingEditScreen() {
   return (
     <Screen style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/logo-red.png")} />
-
       <AppForm
-        initialValues={{ email: "", password: "" }}
+        initialValues={{
+          title: "",
+          price: "",
+          description: "",
+          category: null,
+        }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        <AppFormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="email"
-          keyboardType="email-address"
-          name="email"
-          placeholder="Email"
-          textContentType="emailAddress"
+        <FormField maxLength={255} name="title" placeholder="Title" />
+        <FormField
+          keyboardType="numeric"
+          maxLength={8}
+          name="price"
+          placeholder="Price"
         />
-        <AppFormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="lock"
-          name="password"
-          placeholder="Password"
-          secureTextEntry
-          textContentType="password"
+        <Picker items={categories} name="category" placeholder="Category" />
+        <FormField
+          maxLength={255}
+          multiline
+          name="description"
+          numberOfLines={3}
+          placeholder="Description"
         />
-        <SubmitButton title="Login" />
+        <SubmitButton title="Post" />
       </AppForm>
     </Screen>
   );
@@ -48,13 +61,5 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
   },
-  logo: {
-    width: 80,
-    height: 80,
-    alignSelf: "center",
-    marginTop: 50,
-    marginBottom: 20,
-  },
 });
-
-export default LoginScreen;
+export default ListingEditScreen;
