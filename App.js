@@ -1,45 +1,59 @@
-import React, { useEffect, useState } from "react";
-import * as ImagePicker from 'expo-image-picker';
-import {
-  View,
-  Image,
-  SafeAreaView,
-  Button,
-  Platform,
-  StatusBar,
-  TextInput,
-  Text,
-  Switch,
-} from "react-native";
+import "react-native-gesture-handler";
+import React from "react";
+import { Text, Button } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
-import WelcomeScreen from "./app/screens/WelcomeScreen";
-import ViewImageScreen from "./app/screens/ViewImageScreen";
-import AppText from "./app/components/AppText";
-import AppButton from "./app/components/AppButton";
-import Card from "./app/components/Card";
-import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
-import MessagesScreen from "./app/screens/MessagesScreen";
 import Screen from "./app/components/Screen";
-import Icon from "./app/components/Icon";
-import ListItem from "./app/components/lists/ListItem";
-import AccountScreen from "./app/screens/AccountScreen";
-import ListingsScreen from "./app/screens/ListingsScreen";
-import AppTextInput from "./app/components/AppTextInput";
-import AppPicker from "./app/components/AppPicker";
-import LoginScreen from "./app/screens/LoginScreen";
-import ListingEditScreen from "./app/screens/ListingEditScreen";
-import ImageInput from "./app/components/ImageInput";
-import ImageInputList from "./app/components/ImageInputList";
 
-
-export default function App() {
+const Link = () => {
+  const navigation = useNavigation();
 
   return (
-    // без GestureHandlerRootView не работало удаление по свайпу (появление корзинки при удалении)
-    <GestureHandlerRootView style={{ flex: 1 }}>  
-      <ListingEditScreen />
-    </GestureHandlerRootView>
+    <Button 
+    title="Click"
+    onPress={() => navigation.navigate('TweetDetails')}
+  />
+  );
+  };
+
+const Tweets = ({ navigation }) => (
+  <Screen>
+    <Text>Tweets</Text>
+    <Button 
+      title="View Tweet"
+      onPress={() => navigation.navigate("TweetDetails", { id: 1 })}
+    />
+  </Screen>
+);
+
+const TweetDetails = ({ route }) => (
+  <Screen>
+    <Text>Tweet Details {route.params.id}</Text>
+  </Screen>
+);
+
+const Stack = createStackNavigator();
+const StackNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Tweets" component={Tweets} />
+    <Stack.Screen 
+      name="TweetDetails"  
+      component={TweetDetails} 
+      options={({ route }) => ({ title: route.params.id })}
+    />
+  </Stack.Navigator>
+);
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      {/* без GestureHandlerRootView не работало удаление по свайпу (появление корзинки при удалении) */}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <StackNavigator />
+      </GestureHandlerRootView>
+    </NavigationContainer>
   );
 }
 
@@ -47,3 +61,8 @@ export default function App() {
 // You can use the equivalent function useWindowDimensions() from “react-native”.
 
 // import {useWindowDimensions} from "react-native";
+
+
+// have been used in demo
+// "@react-navigation/native": "^5.3.2",
+// "@react-navigation/stack": "^5.3.5",
