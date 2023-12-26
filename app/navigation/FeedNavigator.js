@@ -8,7 +8,7 @@ import ListingDetailsScreen from '../screens/ListingDetailsScreen';
 const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
-    <Stack.Navigator mode="modal" 
+    <Stack.Navigator mode="modal"
     // возвращение на предыдущий экран по свайпу вниз для андроида не работает
         screenOptions={() => ({
             cardOverlayEnabled: true,
@@ -18,7 +18,7 @@ const FeedNavigator = () => (
               })
         })}
         >
-        <Stack.Screen name="Listing" component={ListingsScreen} options={{headerTitleAlign: 'center'}}/>
+        <Stack.Screen name="Listing" component={ListingsScreen} options={{headerShown: false }}/>
         <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} options={{headerTitleAlign: 'center'}}/>
     </Stack.Navigator>
 );
