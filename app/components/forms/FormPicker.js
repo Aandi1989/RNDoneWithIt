@@ -13,8 +13,6 @@ function AppFormPicker({
   width,
 }) {
   const { errors, setFieldValue, touched, values } = useFormikContext();
-  
-  console.log( errors )
 
   return (
     <>
