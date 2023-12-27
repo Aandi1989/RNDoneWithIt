@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import LottieView from 'lottie-react-native';
+import { View, StyleSheet } from 'react-native'
 
-// this ActivityIndicator crashed app so I used simple ActivityIndicator from react-native
+// this ActivityIndicator crashed app we so far we can just download animation without editing the
 
 function ActivityIndicator({ visible = false }) {
     const animation = useRef(null);
     if(!visible) return null;
 
-    return <LottieView 
+    return (<View style={styles.animationContainer}>
+        <LottieView 
+        source={require('../assets/animations/Animation.json')}
+        ref={animation}
         autoPlay
         loop
-        source={require('../assets/animations/loader.json')}
+        style={{
+            width: 150,
+            height: 150,
+          }}
     />
+    </View>);
+    
 }
+const styles = StyleSheet.create({
+    animationContainer: {
+      backgroundColor: 'transparent',
+      alignItems: 'center',
+      justifyContent: 'center',
+    //   flex: 1, /* if apply this string loader will be in the midle of screen under other content */
+    },
+    buttonContainer: {
+      paddingTop: 20,
+    },
+  });
 
 
 export default ActivityIndicator;

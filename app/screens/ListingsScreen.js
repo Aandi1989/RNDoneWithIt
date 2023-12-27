@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, ActivityIndicator } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import Screen from "../components/Screen";
 import Card from "../components/Card";
@@ -8,53 +8,30 @@ import routes from "../navigation/routes";
 import listingsApi from "../api/listing";
 import AppText from "../components/AppText";
 import Button from "../components/AppButton";
+import useApi from "../hooks/useApi";
+import ActivityIndicator from "../components/ActivityIndicator";
 
 
 function ListingsScreen({ navigation }) {
-  const [listings, setListings] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const getListingsApi = useApi(listingsApi.getListings);
 
   useEffect(() => {
-    loadListings();
+    getListingsApi.request();
   }, []);
 
-  function updateUrls(items) {
-    return items.map((item) => ({
-      ...item,
-      images: item.images.map((image) => ({
-        ...image,
-        url: image.url.replace("http://37.214.61.38", "http://192.168.100.22"),
-      })),
-    }));
-  }
-
-  const loadListings = async () => {
-    setLoading(true);
-    const response = await listingsApi.getListings();
-    setLoading(false);
-
-    if (!response.ok) {
-      return setError(true);
-    }
-
-    setError(false);
-    // console.log(response.data[0]);
-    const updatedListings = updateUrls(response.data);
-    setListings(updatedListings);
-  };
+  
 
   return (
     <Screen style={styles.screen}>
-      {error && (
+      {getListingsApi.error && (
         <>
           <AppText>Couldn't retrieve the listings.</AppText>
           <Button title="Retry" onPress={loadListings} />
         </>
       )}
-     <ActivityIndicator animating={loading} size='large'/>
+     <ActivityIndicator visible={getListingsApi.loading}/>
       <FlatList
-        data={listings}
+        data={getListingsApi.data}
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item }) => (
           <Card
