@@ -14,6 +14,7 @@ import Screen from "../components/Screen";
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import AppText from "../components/AppText";
 import useLocation from "../hooks/useLocation";
+import listingsApi from '../api/listing';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -82,6 +83,21 @@ const categories = [
 
 function ListingEditScreen() {
   const location = useLocation();
+
+  // post request doesn't work with error on backend side 
+/* node:fs:1868
+  return binding.unlink(path);
+                 ^
+Error: EPERM: operation not permitted, unlink 
+'D:\Studying\MoshCourses\The Ultimate React Native Series Advanced Concepts\4.Networking\2.Backend\Backend\uploads\5cdd69b4b30c0c5b030c8f65c36d0e55' */ 
+  const handleSubmit = async (listing) => {
+    const result = await listingsApi.addListing({ ...listing, location });
+    console.log({ ...listing, location })
+    if(!result.ok){
+      return alert("Could not save the listing.");
+    }
+    alert('Success');
+  }
   
   return (
     <Screen style={styles.container}>
@@ -93,7 +109,7 @@ function ListingEditScreen() {
           category: null,
           images: []
         }}
-        onSubmit={(values) => console.log(location)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images"/>
