@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, Button, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -8,22 +8,39 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 import Screen from "./app/components/Screen";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import OfflineNotice from "./app/components/OfflineNotice";
+import AuthContext from "./app/auth/context";
+import authStorage from "./app/auth/storage";
 
 export default function App() {
+  const [user, setUser] = useState();
+
+  const restoreToken = async () => {
+    const token = await authStorage.getToken();
+    if(!token) return;
+    setUser(jwtDecode(token));
+  }
+
+  useEffect(() => {
+    restoreToken()
+  }, []);
+
   return (
+    <AuthContext.Provider value={{ user, setUser }}>
     <NavigationContainer theme={navigationTheme}>
       {/* без GestureHandlerRootView не работало удаление по свайпу (появление корзинки при удалении) */}
       <GestureHandlerRootView style={{ flex: 1 }}>
         <OfflineNotice />
-        <AppNavigator />
+        {user ? <AppNavigator/> : <AuthNavigator />}
       </GestureHandlerRootView>
     </NavigationContainer>
+  </AuthContext.Provider>
   );
 }
 
