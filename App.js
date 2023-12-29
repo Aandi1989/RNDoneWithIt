@@ -1,11 +1,13 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { Text, Button } from "react-native";
+import { Text, Button, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Screen from "./app/components/Screen";
 import AuthNavigator from "./app/navigation/AuthNavigator";
@@ -21,6 +23,7 @@ export default function App() {
        <AppNavigator />
       </GestureHandlerRootView>
     </NavigationContainer>
+    
   );
 }
 
