@@ -12,6 +12,7 @@ export default useApi = (apiFunc) => {
       images: item.images.map((image) => ({
         ...image,
         url: image.url.replace("http://37.214.61.38", "http://192.168.100.22"),
+        thumbnailUrl: image.thumbnailUrl.replace("http://37.214.61.38", "http://192.168.100.22"),
       })),
     }));
   }

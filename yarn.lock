@@ -3121,6 +3121,11 @@
   "resolved" "https://registry.npmjs.org/crypt/-/crypt-0.0.2.tgz"
   "version" "0.0.2"
 
+"crypto-js@^3.1.9-1":
+  "integrity" "sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q=="
+  "resolved" "https://registry.npmjs.org/crypto-js/-/crypto-js-3.3.0.tgz"
+  "version" "3.3.0"
+
 "crypto-random-string@^1.0.0":
   "integrity" "sha512-GsVpkFPlycH7/fRR7Dhcmnoii54gV1nz7y4CWyeFS14N+JVBBhY+r8amRHE4BwSYal7BPTDp8isvAlCxyFt3Hg=="
   "resolved" "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-1.0.0.tgz"
@@ -3589,6 +3594,11 @@
     "path-browserify" "^1.0.0"
     "url-parse" "^1.5.9"
 
+"expo-blur@*", "expo-blur@^12.6.0":
+  "integrity" "sha512-yrZYu4mQX4ZJtSrjNVMuB9kCMB8Xerk5Zn5iES6ojmGAk+yxJ/jdyhaUVqbpaA8LBmspdKgQz2dW8+9wa8dSAg=="
+  "resolved" "https://registry.npmjs.org/expo-blur/-/expo-blur-12.6.0.tgz"
+  "version" "12.6.0"
+
 "expo-constants@^14.4.2", "expo-constants@~14.4.2":
   "integrity" "sha512-nOB122DOAjk+KrJT69lFQAoYVQGQjFHSigCPVBzVdko9S1xGsfiOH9+X5dygTsZTIlVLpQJDdmZ7ONiv3i+26w=="
   "resolved" "https://registry.npmjs.org/expo-constants/-/expo-constants-14.4.2.tgz"
@@ -3597,7 +3607,7 @@
     "@expo/config" "~8.1.0"
     "uuid" "^3.3.2"
 
-"expo-file-system@~15.4.0", "expo-file-system@~15.4.5":
+"expo-file-system@*", "expo-file-system@~15.4.0", "expo-file-system@~15.4.5":
   "integrity" "sha512-xy61KaTaDgXhT/dllwYDHm3ch026EyO8j4eC6wSVr/yE12MMMxAC09yGwy4f7kkOs6ztGVQF5j7ldRzNLN4l0Q=="
   "resolved" "https://registry.npmjs.org/expo-file-system/-/expo-file-system-15.4.5.tgz"
   "version" "15.4.5"
@@ -6176,6 +6186,14 @@
   "integrity" "sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
+
+"react-native-expo-image-cache@^4.1.0":
+  "integrity" "sha512-U6xHtuyalNZThhM11lu4+mRNSpJFkdh4dSLbWkKAj5QfY63cKlTnDVtv8c88njn71GHL4exEzf8hNKBMWhH37Q=="
+  "resolved" "https://registry.npmjs.org/react-native-expo-image-cache/-/react-native-expo-image-cache-4.1.0.tgz"
+  "version" "4.1.0"
+  dependencies:
+    "crypto-js" "^3.1.9-1"
+    "lodash" "^4.17.4"
 
 "react-native-gesture-handler@>= 1.0.0", "react-native-gesture-handler@~2.12.0":
   "integrity" "sha512-deqh36bw82CFUV9EC4tTo2PP1i9HfCOORGS3Zmv71UYhEZEHkzZv18IZNPB+2Awzj45vLIidZxGYGFxHlDSQ5A=="
