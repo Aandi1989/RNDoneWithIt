@@ -93,24 +93,29 @@ function ListingEditScreen() {
                  ^
 Error: EPERM: operation not permitted, unlink 
 'D:\Studying\MoshCourses\The Ultimate React Native Series Advanced Concepts\4.Networking\2.Backend\Backend\uploads\5cdd69b4b30c0c5b030c8f65c36d0e55' */ 
-  const handleSubmit = async (listing) => {
+  const handleSubmit = async (listing, { resetForm }) => {
     setProgress(0);
     setUploadVisible(true);
     const result = await listingsApi.addListing(
       { ...listing, location },
       progress => setProgress(progress));
     console.log({ ...listing, location })
-    setUploadVisible(false);
+    
 
     if(!result.ok){
+      setUploadVisible(false);
       return alert("Could not save the listing.");
     }
-    alert('Success');
+
+    resetForm();
   }
   
   return (
     <Screen style={styles.container}>
-      <UploadScreen progress={progress} visible={uploadVisible}/>
+      <UploadScreen 
+        onDone={() => setUploadVisible(false)} 
+        progress={progress} 
+        visible={uploadVisible}/>
       <Form
         initialValues={{
           title: "",
