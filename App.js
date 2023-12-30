@@ -8,7 +8,6 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import jwtDecode from "jwt-decode";
 import * as SplashScreen from "expo-splash-screen";
 
 import Screen from "./app/components/Screen";
@@ -23,17 +22,18 @@ import AppText from "./app/components/AppText";
 export default function App() {
   const [user, setUser] = useState();
 
-  const restoreToken = async () => {
-    const token = await authStorage.getToken();
-    if(!token) return;
-    setUser(jwtDecode(token));
+  const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    if(user) {
+      setUser(user);
+    };
   }
 
   useEffect(() => {
     async function prepare() {
       try {
         await SplashScreen.preventAutoHideAsync();
-        await restoreToken();
+        await restoreUser();
       } catch (error) {
         console.log("Error loading app", error);
       } finally {
