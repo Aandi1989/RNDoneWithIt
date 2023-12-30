@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Text, Button, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
+import * as SplashScreen from "expo-splash-screen";
 
 import Screen from "./app/components/Screen";
 import AuthNavigator from "./app/navigation/AuthNavigator";
@@ -17,6 +18,7 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import OfflineNotice from "./app/components/OfflineNotice";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
+import AppText from "./app/components/AppText";
 
 export default function App() {
   const [user, setUser] = useState();
@@ -28,8 +30,19 @@ export default function App() {
   }
 
   useEffect(() => {
-    restoreToken()
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        await restoreToken();
+      } catch (error) {
+        console.log("Error loading app", error);
+      } finally {
+        await SplashScreen.hideAsync();
+      }
+    }
+    prepare();
   }, []);
+
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>

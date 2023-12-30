@@ -3,7 +3,7 @@ import cache from '../utility/cache';
 
 const apiClient = create({
     baseURL:'http://192.168.100.6:9000/api', 
-    // baseURL:'http://192.168.100.22:9000/api', /" ip that successfully work  "/ 
+    // baseURL:'http://192.168.100.22:9000/api', /" ip that successfully worked at home  "/ 
     // baseURL:'http://37.214.61.38:9000/api', /* my IP which doesn't work  */
 });
 
