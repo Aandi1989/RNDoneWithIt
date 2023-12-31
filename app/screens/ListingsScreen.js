@@ -30,7 +30,7 @@ function ListingsScreen({ navigation }) {
         </>
       )}
      <ActivityIndicator visible={getListingsApi.loading}/>
-      <FlatList
+    {getListingsApi.loading ? null : <FlatList
         data={getListingsApi.data}
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item }) => (
@@ -42,7 +42,7 @@ function ListingsScreen({ navigation }) {
             thumbnailUrl={item.images[0].thumbnailUrl}
           />
         )}
-      />
+        />}
     </Screen>
   );
 }

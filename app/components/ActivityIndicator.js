@@ -15,8 +15,8 @@ function ActivityIndicator({ visible = false }) {
         autoPlay
         loop
         style={{
-            width: 150,
-            height: 150,
+            width: 250,
+            height: 250,
           }}
     />
     </View>);
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'transparent',
       alignItems: 'center',
       justifyContent: 'center',
-    //   flex: 1, /* if apply this string loader will be in the midle of screen under other content */
+      flex: 1, /* if apply this string loader will be in the midle of screen under other content */
     },
     buttonContainer: {
       paddingTop: 20,

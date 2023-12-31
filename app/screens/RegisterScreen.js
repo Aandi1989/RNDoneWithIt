@@ -15,6 +15,9 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 
+// haven't implemented Showing an Activity Indicator and Adding an Overlay as it caused 
+// errors in useApi updateUrls 
+
 function RegisterScreen() {
   const auth = useAuth();
   const [error, setError] = useState();
